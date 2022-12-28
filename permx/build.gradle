@@ -43,8 +43,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.gaiuszzang'
-                artifactId = 'GroovinPermX'
+                groupId = 'io.groovin'
+                artifactId = 'permx'
                 version = '1.0.0'
             }
         }
