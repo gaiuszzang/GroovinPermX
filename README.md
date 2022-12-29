@@ -1,4 +1,5 @@
 ## GroovinPermX
+[![Release](https://jitpack.io/v/gaiuszzang/GroovinPermX.svg)](https://jitpack.io/#gaiuszzang/GroovinPermX)  
 Android Permissions with Kotlin Coroutines.
 Get Permission Request Result asynchronously with one function call.
 
