@@ -1,5 +1,5 @@
 ## GroovinPermX
-[![Release](https://jitpack.io/v/gaiuszzang/GroovinPermX.svg)](https://jitpack.io/#gaiuszzang/GroovinPermX)  
+[![Release](https://jitpack.io/v/io.groovin/GroovinPermX.svg)](https://jitpack.io/#io.groovin/GroovinPermX)  
 Android Permissions with Kotlin Coroutines.
 Get Permission Request Result asynchronously with one function call.
 
@@ -21,19 +21,11 @@ dependencyResolutionManagement {
     }
 }
 ```
-for old gradle version, Add below codes to **your project**'s `build.gradle`.
-```gradle
-allprojects {
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
-}
-```
 
 And add a dependency code to your **module**'s `build.gradle` file.
 ```gradle
 dependencies {
-    implementation 'com.github.gaiuszzang:GroovinPermX:x.x.x'
+    implementation 'io.groovin:GroovinPermX:x.x.x'
 }
 ```
 
