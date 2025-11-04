@@ -8,31 +8,26 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import io.groovin.permx.LocalPermX
-import io.groovin.permx.permX
+import io.groovin.permx.rememberPermX
 import io.groovin.permx.sampleapp.theme.GroovinPermXTheme
 import kotlinx.coroutines.launch
 
 class ComposableActivity : ComponentActivity() {
-    private val permX by permX()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CompositionLocalProvider(LocalPermX provides permX) {
                 GroovinPermXTheme {
                     ComposableScreen()
                 }
-            }
         }
     }
 }
@@ -41,7 +36,7 @@ class ComposableActivity : ComponentActivity() {
 fun ComposableScreen() {
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
-    val permX = LocalPermX.current
+    val permX = rememberPermX()
 
     suspend fun checkPermission() {
         val permList = arrayOf(
@@ -67,7 +62,7 @@ fun ComposableScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Button(

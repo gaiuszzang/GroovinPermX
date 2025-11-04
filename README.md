@@ -31,65 +31,78 @@ dependencies {
 
 
 ## Usage
-### Declare PermX
-First of all, Declare the `PermX` as member fields in Activity.
-`PermX` needs a Activity parameter, but you can also use `by permX()` delegation for easily.
-> Note : `PermX` only supports Activity that based on AppCompatActivity or ComponentActivity.
-```kotlin
-class YourActivity : AppCompatActivity() {
+There are two ways to use GroovinPermX depending on your context:
 
-  private val permX by permX()  
-  // or private val permX = PermX(this)
+### 1. Usage in Activity
+You can directly call `requestPermission()` extension function from any `ComponentActivity` within a coroutine scope.
+> Note : `requestPermission()` extension is only available for `ComponentActivity`.
 
-}
-```
-
-In Compose, You can use the `LocalPermX` with CompositionLocalProvider.
 ```kotlin
 class YourActivity : ComponentActivity() {
 
-  private val permX by permX()  
-  // or private val permX = PermX(this)
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContent {
-      CompositionLocalProvider(LocalPermX provides permX) {
-        //Composable
+
+    // Call requestPermission() in any coroutine scope
+    lifecycleScope.launch {
+      val permList = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+      )
+      val permResult = requestPermission(permList)
+
+      if (permResult.isAllGranted()) {
+        // All of permissions are granted.
+      } else if (permResult.shouldShowRequestPermissionRationale()) {
+        // Some(or all) permissions are denied, and You should show the request permission rationale to user.
+      } else {
+        // Some(or all) permissions are denied.
       }
     }
   }
 }
 ```
 
-### Check Permissions asynchronously
-You can check the permissions as asynchronously with using `requestPermission()` method.
-This method is suspend function, so please call this in coroutine.
+### 2. Usage in Composable
+In Compose, use `rememberPermX()` to get a PermX instance and call `requestPermission()`.
 
 ```kotlin
-private suspend fun checkPermission() {
-  val permList = arrayOf(
-    Manifest.permission.CAMERA,
-    Manifest.permission.ACCESS_FINE_LOCATION,
-    Manifest.permission.ACCESS_COARSE_LOCATION
-  )
-  val permResult = permX.requestPermission(permList)
-  if (permResult.isAllGranted()) {
-    // All of permissions are granted. 
-  } else if (permResult.shouldShowRequestPermissionRationale()) {
-    // Some(or all) permissions are denied, and You should show the request permission rationale to user.
-  } else {
-    // Some(or all) permissions are denied.
+@Composable
+fun YourComposable() {
+  val permX = rememberPermX()
+  val scope = rememberCoroutineScope()
+
+  Button(onClick = {
+    scope.launch {
+      val permList = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+      )
+      val permResult = permX.requestPermission(permList)
+
+      if (permResult.isAllGranted()) {
+        // All of permissions are granted.
+      } else if (permResult.shouldShowRequestPermissionRationale()) {
+        // Some(or all) permissions are denied, and You should show the request permission rationale to user.
+      } else {
+        // Some(or all) permissions are denied.
+      }
+    }
+  }) {
+    Text("Request Permissions")
   }
 }
 ```
 
-`requestPermission()` method will return `PermissionResult`. This Class have 3 member variables and 3 methods.
-```kotlin
- 
-val permResult = permX.requestPermission(permList)
+### Understanding PermissionResult
+`requestPermission()` method will return `PermissionResult`. This class has 3 member variables and 3 methods.
 
-//Granted permission list.
+```kotlin
+val permResult = requestPermission(permList)
+
+// Granted permission list.
 permResult.grantList
 
 // Denied permission list that excludes should show request permission rationale.

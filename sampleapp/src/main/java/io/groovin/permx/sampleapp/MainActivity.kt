@@ -5,14 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import io.groovin.permx.permX
+import io.groovin.permx.requestPermission
 import io.groovin.permx.sampleapp.databinding.MainActivityBinding
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-
-    private val permX by permX()
-
     private lateinit var binding: MainActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
-            val permResult = permX.requestPermission(permList)
+            val permResult = requestPermission(permList)
             if (permResult.isAllGranted()) {
                 showToast("Permission All Granted!")
             } else if (permResult.shouldShowRequestPermissionRationale()) {
