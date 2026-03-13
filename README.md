@@ -1,5 +1,6 @@
 ## GroovinPermX
-[![Release](https://jitpack.io/v/io.groovin/GroovinPermX.svg)](https://jitpack.io/#io.groovin/GroovinPermX)  
+[![Maven Central](https://img.shields.io/maven-central/v/io.groovin/permx)](https://central.sonatype.com/artifact/io.groovin/permx)
+
 Android Permissions with Kotlin Coroutines.
 Get Permission Request Result asynchronously with one function call.
 
@@ -12,16 +13,6 @@ You can see how to use this library on each cases.
 
 ## Including in your project
 ### Gradle
-Add below codes to `settings.gradle`.
-```gradle
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        maven { url "https://jitpack.io" }
-    }
-}
-```
-
 And add a dependency code to your **module**'s `build.gradle` file.
 ```gradle
 dependencies {

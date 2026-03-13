@@ -5,18 +5,19 @@ minSdk = "24"
 targetSdk = "36"
 
 # Plugin versions
-agp = "8.13.0"
-kotlin = "2.2.21"
+agp = "9.1.0"
+kotlin = "2.3.10"
+mavenPublish = "0.36.0"
 
 # Compose versions
-composeBom = "2025.10.01"
+composeBom = "2026.03.00"
 
 # AndroidX versions
-androidxCore = "1.17.0"
+androidxCore = "1.18.0"
 androidxAppcompat = "1.7.1"
-androidxActivity = "1.11.0"
-androidxActivityCompose = "1.11.0"
-androidxLifecycleRuntime = "2.9.4"
+androidxActivity = "1.13.0"
+androidxActivityCompose = "1.13.0"
+androidxLifecycleRuntime = "2.10.0"
 
 # Test versions
 junit = "4.13.2"
@@ -50,7 +51,5 @@ androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-te
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-
-[bundles]
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
